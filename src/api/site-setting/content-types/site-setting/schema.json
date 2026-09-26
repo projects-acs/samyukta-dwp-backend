@@ -1,0 +1,43 @@
+{
+  "kind": "singleType",
+  "collectionName": "site_setting",
+  "info": {
+    "singularName": "site-setting",
+    "pluralName": "site-settings",
+    "displayName": "Site Setting",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "fullName": {
+      "type": "string"
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "areaOfOperation": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "mapQuery": {
+      "type": "string"
+    },
+    "social": {
+      "type": "json"
+    }
+  }
+}

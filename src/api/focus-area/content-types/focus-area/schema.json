@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "focus_areas",
+  "info": {
+    "singularName": "focus-area",
+    "pluralName": "focus-areas",
+    "displayName": "Focus Area",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

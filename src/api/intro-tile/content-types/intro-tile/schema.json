@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "intro_tiles",
+  "info": {
+    "singularName": "intro-tile",
+    "pluralName": "intro-tiles",
+    "displayName": "Intro Tile",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "icon": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "text": {
+      "type": "text"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}
