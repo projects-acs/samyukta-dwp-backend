@@ -815,7 +815,7 @@ export interface ApiMembershipApplicationMembershipApplication
   extends Struct.CollectionTypeSchema {
   collectionName: 'membership_applications';
   info: {
-    description: '';
+    description: 'Online membership applications (check payment proof, then approve)';
     displayName: 'Membership Application';
     pluralName: 'membership-applications';
     singularName: 'membership-application';
@@ -824,10 +824,19 @@ export interface ApiMembershipApplicationMembershipApplication
     draftAndPublish: true;
   };
   attributes: {
+    adminNotes: Schema.Attribute.Text;
+    amount: Schema.Attribute.Integer;
+    applicationDate: Schema.Attribute.Date;
+    applicationStatus: Schema.Attribute.Enumeration<
+      ['pending', 'payment_verified', 'approved', 'rejected']
+    > &
+      Schema.Attribute.DefaultTo<'pending'>;
     city: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    declaration: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    documents: Schema.Attribute.Media<'images' | 'files', true>;
     email: Schema.Attribute.Email & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -838,10 +847,20 @@ export interface ApiMembershipApplicationMembershipApplication
     membershipType: Schema.Attribute.String;
     message: Schema.Attribute.Text;
     name: Schema.Attribute.String & Schema.Attribute.Required;
+    paymentDate: Schema.Attribute.Date;
+    paymentProof: Schema.Attribute.Media<'images' | 'files'>;
+    pgYear: Schema.Attribute.String;
     phone: Schema.Attribute.String;
+    professionalAddress: Schema.Attribute.Text;
+    proposedBy: Schema.Attribute.String;
+    proposerSignature: Schema.Attribute.Media<'images' | 'files'>;
     publishedAt: Schema.Attribute.DateTime;
     qualification: Schema.Attribute.String;
     registrationNo: Schema.Attribute.String;
+    residentialAddress: Schema.Attribute.Text;
+    secondedBy: Schema.Attribute.String;
+    seconderSignature: Schema.Attribute.Media<'images' | 'files'>;
+    transactionId: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -972,6 +991,49 @@ export interface ApiObjectiveObjective extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPaymentSettingPaymentSetting
+  extends Struct.SingleTypeSchema {
+  collectionName: 'payment_setting';
+  info: {
+    description: 'Bank / UPI details and membership fees shown on the application form';
+    displayName: 'Payment Setting';
+    pluralName: 'payment-settings';
+    singularName: 'payment-setting';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    accountName: Schema.Attribute.String;
+    accountNumber: Schema.Attribute.String;
+    associateFee: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<5000>;
+    bankName: Schema.Attribute.String;
+    branch: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    ifsc: Schema.Attribute.String;
+    instructions: Schema.Attribute.Text;
+    lifeFee: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<10000>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::payment-setting.payment-setting'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    qrCode: Schema.Attribute.Media<'images'>;
+    showPaymentDetails: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
+    treasurerName: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    upgradeFee: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<5000>;
+    upiId: Schema.Attribute.String;
   };
 }
 
@@ -1701,6 +1763,7 @@ declare module '@strapi/strapi' {
       'api::method.method': ApiMethodMethod;
       'api::newsletter-subscriber.newsletter-subscriber': ApiNewsletterSubscriberNewsletterSubscriber;
       'api::objective.objective': ApiObjectiveObjective;
+      'api::payment-setting.payment-setting': ApiPaymentSettingPaymentSetting;
       'api::post.post': ApiPostPost;
       'api::president-message.president-message': ApiPresidentMessagePresidentMessage;
       'api::site-setting.site-setting': ApiSiteSettingSiteSetting;

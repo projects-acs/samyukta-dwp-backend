@@ -1,0 +1,63 @@
+{
+  "kind": "singleType",
+  "collectionName": "payment_setting",
+  "info": {
+    "singularName": "payment-setting",
+    "pluralName": "payment-settings",
+    "displayName": "Payment Setting",
+    "description": "Bank / UPI details and membership fees shown on the application form"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "showPaymentDetails": {
+      "type": "boolean",
+      "default": true
+    },
+    "associateFee": {
+      "type": "integer",
+      "default": 5000
+    },
+    "lifeFee": {
+      "type": "integer",
+      "default": 10000
+    },
+    "upgradeFee": {
+      "type": "integer",
+      "default": 5000
+    },
+    "accountName": {
+      "type": "string"
+    },
+    "bankName": {
+      "type": "string"
+    },
+    "accountNumber": {
+      "type": "string"
+    },
+    "branch": {
+      "type": "string"
+    },
+    "ifsc": {
+      "type": "string"
+    },
+    "upiId": {
+      "type": "string"
+    },
+    "qrCode": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "treasurerName": {
+      "type": "string"
+    },
+    "instructions": {
+      "type": "text"
+    }
+  }
+}

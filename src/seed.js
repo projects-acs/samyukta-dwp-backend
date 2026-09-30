@@ -37,7 +37,7 @@ async function setPublicPermissions(strapi) {
     'hero-slide', 'focus-area', 'intro-tile', 'stat', 'objective', 'method',
     'team-member', 'event', 'post', 'membership-plan', 'faq', 'testimonial',
     'gallery-event', 'site-setting', 'president-message',
-    'header-setting', 'footer-setting', 'member',
+    'header-setting', 'footer-setting', 'member', 'payment-setting',
   ];
   const writeOnlyTypes = ['contact-submission', 'membership-application', 'newsletter-subscriber'];
 
@@ -254,20 +254,12 @@ async function seed(strapi) {
   }
 
   // ---------- Membership Plans ----------
-  const plans = [
-    { name: 'Associate Fellow', fee: 'Fee to be announced', description: 'For psychiatrists who wish to be part of Samyukta\u2019s academic and support network.', highlighted: false, benefits: ['Listing in the digital membership directory', 'Invitations to scientific meetings & CMEs', 'Access to publications and newsletters', 'Peer support network'] },
-    { name: 'Life Fellow', fee: 'Fee to be announced', description: 'A lifelong association with the Society with full participation in its activities.', highlighted: true, benefits: ['Everything in Associate Fellow', 'Lifelong membership status', 'Eligibility to participate in Society governance as per rules', 'Priority for conferences and workshops'] },
-  ];
+  const { plans, faqs } = require('./membership-content');
   for (let i = 0; i < plans.length; i++) {
     await strapi.documents('api::membership-plan.membership-plan').create({ data: { ...plans[i], order: i + 1, publishedAt: new Date() }, status: 'published' });
   }
 
   // ---------- FAQs ----------
-  const faqs = [
-    { q: 'Who can become a member?', a: 'Sample answer – update as per Society rules and eligibility criteria.' },
-    { q: 'How is membership status decided?', a: 'The Council decides the membership status; it counts from the date the membership fee is received and updated in the Society account.' },
-    { q: 'Is there a membership directory?', a: 'Yes. The register of members is updated every year and the directory is accessible to members digitally.' },
-  ];
   for (let i = 0; i < faqs.length; i++) {
     await strapi.documents('api::faq.faq').create({ data: { ...faqs[i], order: i + 1, publishedAt: new Date() }, status: 'published' });
   }

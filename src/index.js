@@ -1,7 +1,7 @@
 'use strict';
 
 const { seed, setPublicPermissions } = require('./seed');
-const { seedExtras } = require('./seed-extras');
+const { seedExtras, refreshMembershipContent } = require('./seed-extras');
 
 module.exports = {
   /**
@@ -24,6 +24,7 @@ module.exports = {
       await setPublicPermissions(strapi);
       await seed(strapi);
       await seedExtras(strapi);
+      await refreshMembershipContent(strapi);
     } catch (err) {
       strapi.log.error('[seed] Failed to seed data:', err);
     }

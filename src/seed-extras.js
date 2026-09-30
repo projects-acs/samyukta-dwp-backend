@@ -3,6 +3,8 @@
 // Idempotent seed for Header/Footer settings + sample Members.
 // Safe to run on every start: each block only runs when its data is missing.
 
+const content = require('./membership-content');
+
 const headerDefaults = {
   showHeader: true,
   showTopBar: true,
@@ -74,6 +76,21 @@ async function seedExtras(strapi) {
     strapi.log.info('[seed-extras] Footer setting created.');
   }
 
+  // ---- Payment setting (admin fills the bank details) ----
+  const pay = await strapi.documents('api::payment-setting.payment-setting').findFirst();
+  if (!pay) {
+    await strapi.documents('api::payment-setting.payment-setting').create({
+      data: {
+        showPaymentDetails: true, associateFee: 5000, lifeFee: 10000, upgradeFee: 5000,
+        accountName: 'Samyukta – Delhi Women Psychiatry Society',
+        treasurerName: 'Dr. Sneha Sharma',
+        instructions: 'Pay by NEFT / IMPS / UPI / cheque to the Society account and upload the payment screenshot or receipt with your application.',
+      },
+      status: 'published',
+    });
+    strapi.log.info('[seed-extras] Payment setting created (add bank details in admin).');
+  }
+
   // ---- Sample members (delete these from the admin panel and add real ones) ----
   const any = await strapi.documents('api::member.member').findMany({ limit: 1 });
   if (!any || any.length === 0) {
@@ -104,4 +121,29 @@ async function seedExtras(strapi) {
   }
 }
 
-module.exports = { seedExtras };
+// One-time refresh of the OLD placeholder plans/FAQs (only when they still look like the original sample text).
+// Anything the admin has already edited is left alone.
+async function refreshMembershipContent(strapi) {
+  const planApi = strapi.documents('api::membership-plan.membership-plan');
+  const faqApi = strapi.documents('api::faq.faq');
+
+  const plans = await planApi.findMany({ limit: 50 });
+  for (const def of content.plans) {
+    const cur = plans.find((p) => p.name === def.name);
+    if (cur && cur.fee === content.PLACEHOLDER_FEE) {
+      await planApi.update({ documentId: cur.documentId, data: def, status: 'published' });
+      strapi.log.info(`[seed-extras] Updated plan "${def.name}".`);
+    }
+  }
+
+  const faqs = await faqApi.findMany({ limit: 100 });
+  if (faqs.length && faqs.some((f) => (f.a || '').startsWith('Sample answer'))) {
+    for (const f of faqs) await faqApi.delete({ documentId: f.documentId });
+    for (let i = 0; i < content.faqs.length; i++) {
+      await faqApi.create({ data: { ...content.faqs[i], order: i + 1 }, status: 'published' });
+    }
+    strapi.log.info('[seed-extras] FAQs refreshed.');
+  }
+}
+
+module.exports = { seedExtras, refreshMembershipContent };

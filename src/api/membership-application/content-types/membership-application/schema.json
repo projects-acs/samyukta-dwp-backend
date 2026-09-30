@@ -5,7 +5,7 @@
     "singularName": "membership-application",
     "pluralName": "membership-applications",
     "displayName": "Membership Application",
-    "description": ""
+    "description": "Online membership applications (check payment proof, then approve)"
   },
   "options": {
     "draftAndPublish": true
@@ -36,6 +36,82 @@
       "type": "string"
     },
     "message": {
+      "type": "text"
+    },
+    "pgYear": {
+      "type": "string"
+    },
+    "professionalAddress": {
+      "type": "text"
+    },
+    "residentialAddress": {
+      "type": "text"
+    },
+    "amount": {
+      "type": "integer"
+    },
+    "proposedBy": {
+      "type": "string"
+    },
+    "proposerSignature": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "secondedBy": {
+      "type": "string"
+    },
+    "seconderSignature": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "documents": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "transactionId": {
+      "type": "string"
+    },
+    "paymentDate": {
+      "type": "date"
+    },
+    "paymentProof": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "declaration": {
+      "type": "boolean",
+      "default": false
+    },
+    "applicationDate": {
+      "type": "date"
+    },
+    "applicationStatus": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "payment_verified",
+        "approved",
+        "rejected"
+      ],
+      "default": "pending"
+    },
+    "adminNotes": {
       "type": "text"
     }
   }
