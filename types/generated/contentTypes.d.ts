@@ -571,6 +571,46 @@ export interface ApiFocusAreaFocusArea extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiFooterSettingFooterSetting extends Struct.SingleTypeSchema {
+  collectionName: 'footer_setting';
+  info: {
+    description: 'Control the website footer';
+    displayName: 'Footer Setting';
+    pluralName: 'footer-settings';
+    singularName: 'footer-setting';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    aboutText: Schema.Attribute.Text;
+    copyrightText: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::footer-setting.footer-setting'
+    > &
+      Schema.Attribute.Private;
+    newsletterText: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    quickLinks: Schema.Attribute.Component<'shared.link-item', true>;
+    quickLinksTitle: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Quick Links'>;
+    showAbout: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showContact: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showFooter: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showNewsletter: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showQuickLinks: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showSocial: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGalleryEventGalleryEvent
   extends Struct.CollectionTypeSchema {
   collectionName: 'gallery_events';
@@ -599,6 +639,60 @@ export interface ApiGalleryEventGalleryEvent
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'title'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiHeaderSettingHeaderSetting extends Struct.SingleTypeSchema {
+  collectionName: 'header_setting';
+  info: {
+    description: 'Control the website header';
+    displayName: 'Header Setting';
+    pluralName: 'header-settings';
+    singularName: 'header-setting';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    joinCustomPath: Schema.Attribute.String;
+    joinLabel: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Join Now'>;
+    joinPage: Schema.Attribute.Enumeration<
+      [
+        'home',
+        'about',
+        'governing_body',
+        'events',
+        'psychiatric_disorders',
+        'gallery',
+        'publications',
+        'membership',
+        'life_fellow_members',
+        'associate_members',
+        'contact',
+        'custom',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'membership'>;
+    links: Schema.Attribute.Component<'shared.menu-item', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::header-setting.header-setting'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    showEmail: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showHeader: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showJoinButton: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showPhone: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showTopBar: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    tagline: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -672,6 +766,45 @@ export interface ApiIntroTileIntroTile extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     text: Schema.Attribute.Text;
     title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMemberMember extends Struct.CollectionTypeSchema {
+  collectionName: 'members';
+  info: {
+    description: 'Life Fellow & Associate members directory';
+    displayName: 'Member';
+    pluralName: 'members';
+    singularName: 'member';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    designation: Schema.Attribute.Text;
+    email: Schema.Attribute.Email;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::member.member'
+    > &
+      Schema.Attribute.Private;
+    membershipId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    memberType: Schema.Attribute.Enumeration<['life_fellow', 'associate']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'associate'>;
+    mobile: Schema.Attribute.String;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    showContact: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1557,9 +1690,12 @@ declare module '@strapi/strapi' {
       'api::event.event': ApiEventEvent;
       'api::faq.faq': ApiFaqFaq;
       'api::focus-area.focus-area': ApiFocusAreaFocusArea;
+      'api::footer-setting.footer-setting': ApiFooterSettingFooterSetting;
       'api::gallery-event.gallery-event': ApiGalleryEventGalleryEvent;
+      'api::header-setting.header-setting': ApiHeaderSettingHeaderSetting;
       'api::hero-slide.hero-slide': ApiHeroSlideHeroSlide;
       'api::intro-tile.intro-tile': ApiIntroTileIntroTile;
+      'api::member.member': ApiMemberMember;
       'api::membership-application.membership-application': ApiMembershipApplicationMembershipApplication;
       'api::membership-plan.membership-plan': ApiMembershipPlanMembershipPlan;
       'api::method.method': ApiMethodMethod;

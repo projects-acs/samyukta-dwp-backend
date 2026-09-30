@@ -1,0 +1,69 @@
+{
+  "kind": "singleType",
+  "collectionName": "header_setting",
+  "info": {
+    "singularName": "header-setting",
+    "pluralName": "header-settings",
+    "displayName": "Header Setting",
+    "description": "Control the website header"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "showHeader": {
+      "type": "boolean",
+      "default": true
+    },
+    "showTopBar": {
+      "type": "boolean",
+      "default": true
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "showPhone": {
+      "type": "boolean",
+      "default": true
+    },
+    "showEmail": {
+      "type": "boolean",
+      "default": true
+    },
+    "showJoinButton": {
+      "type": "boolean",
+      "default": true
+    },
+    "joinLabel": {
+      "type": "string",
+      "default": "Join Now"
+    },
+    "joinPage": {
+      "type": "enumeration",
+      "enum": [
+        "home",
+        "about",
+        "governing_body",
+        "events",
+        "psychiatric_disorders",
+        "gallery",
+        "publications",
+        "membership",
+        "life_fellow_members",
+        "associate_members",
+        "contact",
+        "custom"
+      ],
+      "default": "membership"
+    },
+    "joinCustomPath": {
+      "type": "string"
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.menu-item"
+    }
+  }
+}

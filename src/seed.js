@@ -37,6 +37,7 @@ async function setPublicPermissions(strapi) {
     'hero-slide', 'focus-area', 'intro-tile', 'stat', 'objective', 'method',
     'team-member', 'event', 'post', 'membership-plan', 'faq', 'testimonial',
     'gallery-event', 'site-setting', 'president-message',
+    'header-setting', 'footer-setting', 'member',
   ];
   const writeOnlyTypes = ['contact-submission', 'membership-application', 'newsletter-subscriber'];
 

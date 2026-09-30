@@ -1,0 +1,58 @@
+{
+  "kind": "singleType",
+  "collectionName": "footer_setting",
+  "info": {
+    "singularName": "footer-setting",
+    "pluralName": "footer-settings",
+    "displayName": "Footer Setting",
+    "description": "Control the website footer"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "showFooter": {
+      "type": "boolean",
+      "default": true
+    },
+    "showAbout": {
+      "type": "boolean",
+      "default": true
+    },
+    "aboutText": {
+      "type": "text"
+    },
+    "showSocial": {
+      "type": "boolean",
+      "default": true
+    },
+    "showQuickLinks": {
+      "type": "boolean",
+      "default": true
+    },
+    "quickLinksTitle": {
+      "type": "string",
+      "default": "Quick Links"
+    },
+    "quickLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link-item"
+    },
+    "showContact": {
+      "type": "boolean",
+      "default": true
+    },
+    "showNewsletter": {
+      "type": "boolean",
+      "default": true
+    },
+    "newsletterText": {
+      "type": "string"
+    },
+    "copyrightText": {
+      "type": "string"
+    }
+  }
+}

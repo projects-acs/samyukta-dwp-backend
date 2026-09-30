@@ -1,0 +1,49 @@
+{
+  "collectionName": "components_shared_menu_items",
+  "info": {
+    "displayName": "Menu Item",
+    "icon": "bulletList",
+    "description": "Menu link with optional sub pages (dropdown)"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "page": {
+      "type": "enumeration",
+      "enum": [
+        "home",
+        "about",
+        "governing_body",
+        "events",
+        "psychiatric_disorders",
+        "gallery",
+        "publications",
+        "membership",
+        "life_fellow_members",
+        "associate_members",
+        "contact",
+        "custom"
+      ],
+      "default": "home"
+    },
+    "customPath": {
+      "type": "string"
+    },
+    "visible": {
+      "type": "boolean",
+      "default": true
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    },
+    "children": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link-item"
+    }
+  }
+}

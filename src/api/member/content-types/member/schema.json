@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "members",
+  "info": {
+    "singularName": "member",
+    "pluralName": "members",
+    "displayName": "Member",
+    "description": "Life Fellow & Associate members directory"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "membershipId": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email"
+    },
+    "designation": {
+      "type": "text"
+    },
+    "mobile": {
+      "type": "string"
+    },
+    "memberType": {
+      "type": "enumeration",
+      "enum": [
+        "life_fellow",
+        "associate"
+      ],
+      "required": true,
+      "default": "associate"
+    },
+    "showContact": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

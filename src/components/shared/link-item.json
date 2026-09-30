@@ -1,0 +1,44 @@
+{
+  "collectionName": "components_shared_link_items",
+  "info": {
+    "displayName": "Link Item",
+    "icon": "link",
+    "description": "Single link: pick a page (or custom URL) and show/hide it"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "page": {
+      "type": "enumeration",
+      "enum": [
+        "home",
+        "about",
+        "governing_body",
+        "events",
+        "psychiatric_disorders",
+        "gallery",
+        "publications",
+        "membership",
+        "life_fellow_members",
+        "associate_members",
+        "contact",
+        "custom"
+      ],
+      "default": "home"
+    },
+    "customPath": {
+      "type": "string"
+    },
+    "visible": {
+      "type": "boolean",
+      "default": true
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}
